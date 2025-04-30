@@ -3,12 +3,14 @@ const container = document.querySelector('.container');
 //Storing book objects in this array
 const myLibrary = [];
 
-//The constructor for the book
-function Book(title, author, hasRead){
-    this.id = crypto.randomUUID();
-    this.title = title;
-    this.author = author;
-    this.hasRead = hasRead;
+//Class for the book
+class Book{
+    constructor(title, author, hasRead){
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.author = author;
+        this.hasRead = hasRead;
+    }
 }
 
 //Helper function to add books
