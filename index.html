@@ -15,13 +15,15 @@
     <div class="container"></div>
 
 <dialog id="favDialog">
-    <form id="bookform">
+    <form id="bookform" novalidate>
         <fieldset>
             <legend>Book Details</legend>
             <label for="title">Book Title</label>
-            <input type="text" id="title" name="title">
+            <input type="text" id="title" name="title" required>
+            <span class="error-message" id="title-error"></span>
             <label for="author">Book Author</label>
-            <input type="text" id="author" name="author">
+            <input type="text" id="author" name="author" required>
+            <span class="error-message" id="author-error"></span>
             <label>
                 <input type="checkbox" id="readToggle">
                 Completed reading
