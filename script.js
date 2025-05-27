@@ -23,25 +23,38 @@ const showButton = document.getElementById('add-book');
 const favDialog = document.getElementById('favDialog');
 const selectEl = favDialog.querySelector("fieldset");
 const confirmBtn = document.getElementById('added-book');
+const bookForm = document.getElementById('bookform');
+
+const titleInput = document.getElementById('title');
+const authorInput = document.getElementById('author');
+
+titleInput.addEventListener('input', checkForm);
+authorInput.addEventListener('input', checkForm);
 
 showButton.addEventListener("click", () => {
     document.getElementById("bookform").reset();
     favDialog.showModal();
 });
 
-confirmBtn.addEventListener("click", (event) => {
+// Remove the separate confirmBtn click handler and use form submit
+bookForm.addEventListener("submit", (event) => {
     event.preventDefault();
+    
+    // Check form validity
+    if (!bookForm.checkValidity()) {
+        checkForm();
+        return;
+    }
 
     const title = document.getElementById("title").value;
     const author = document.getElementById("author").value;
     const completed = document.getElementById("readToggle").checked;
 
-    // console.log(title, author, completed);
     addBookToLibrary(title, author, completed);
     favDialog.close();
     renderLibrary();
     console.log(myLibrary);
-})
+});
 
 function renderLibrary(){
     container.innerHTML = '';
@@ -70,4 +83,25 @@ function renderLibrary(){
 
         container.appendChild(card);
     })
+}
+
+function checkForm(){
+    const titleError = document.getElementById('title-error');
+    const authorError = document.getElementById('author-error');
+
+    if(titleInput.validity.valueMissing){
+        titleInput.setCustomValidity("This field is required!");
+        titleError.textContent = "Please enter a book title";
+    }else{
+        titleInput.setCustomValidity("");
+        titleError.textContent = "";
+    }
+
+    if(authorInput.validity.valueMissing){
+        authorInput.setCustomValidity("This field is required!");
+        authorError.textContent = "Please enter an author name";
+    }else{
+        authorInput.setCustomValidity("");
+        authorError.textContent = "";
+    }
 }
